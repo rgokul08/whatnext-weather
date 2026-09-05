@@ -1,0 +1,9 @@
+{
+  "name": "WhatNext.com Weather",
+  "short_name": "WhatNext",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08131d",
+  "theme_color": "#08131d",
+  "description": "Know the weather. Know what's next."
+}
