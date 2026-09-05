@@ -4,25 +4,26 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --bg: #08131d;
-  --bg-elevated: #0d1c29;
-  --surface: rgba(15, 31, 45, 0.78);
-  --surface-solid: #102231;
-  --surface-hover: #152c3d;
-  --text: #f2f7f8;
-  --muted-text: #8da2b0;
-  --faint-text: #607987;
-  --line: rgba(164, 204, 216, 0.13);
-  --line-strong: rgba(164, 204, 216, 0.24);
-  --cyan: #55d6e8;
-  --cyan-soft: #9ae8f2;
-  --blue: #7c9cff;
-  --amber: #ffc45e;
-  --green: #7cdbb5;
-  --red: #ff8d8d;
-  --violet: #beadff;
-  --chart-grid: rgba(162, 205, 218, 0.1);
-  --tooltip-bg: #112534;
+  /* Dark mode palette: Color Hunt #fef2a0 #f3cd97 #e98b50 #bc4f4f */
+  --bg: #171011;
+  --bg-elevated: #211716;
+  --surface: rgba(43, 25, 21, 0.82);
+  --surface-solid: #261918;
+  --surface-hover: #38231d;
+  --text: #fff8e2;
+  --muted-text: #d4b68e;
+  --faint-text: #a47f68;
+  --line: rgba(254, 242, 160, 0.14);
+  --line-strong: rgba(254, 242, 160, 0.28);
+  --cyan: #fef2a0;
+  --cyan-soft: #fff6c4;
+  --blue: #f3cd97;
+  --amber: #e98b50;
+  --green: #f3cd97;
+  --red: #bc4f4f;
+  --violet: #f3cd97;
+  --chart-grid: rgba(254, 242, 160, 0.1);
+  --tooltip-bg: #2c1c18;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -37,7 +38,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
 .app-shell { min-height: 100vh; position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(circle at 12% 0%, rgba(39, 89, 110, 0.15), transparent 30%), radial-gradient(circle at 88% 18%, rgba(50, 44, 104, 0.12), transparent 28%), var(--bg); transition: background 300ms ease, color 300ms ease; }
-.app-shell.light-mode { --bg: #f2f6f5; --bg-elevated: #f8fbfa; --surface: rgba(255,255,255,0.84); --surface-solid: #fff; --surface-hover: #f2f8f8; --text: #14232e; --muted-text: #647883; --faint-text: #83959d; --line: rgba(18, 52, 67, 0.12); --line-strong: rgba(18, 52, 67, 0.2); --shadow: 0 20px 60px rgba(43, 72, 81, 0.12); background: radial-gradient(circle at 12% 0%, rgba(116, 219, 227, .17), transparent 32%), radial-gradient(circle at 92% 18%, rgba(163, 152, 255, .12), transparent 30%), var(--bg); }
+.app-shell.light-mode { --bg: #f2f6f5; --bg-elevated: #f8fbfa; --surface: rgba(255,255,255,0.84); --surface-solid: #fff; --surface-hover: #f2f8f8; --text: #14232e; --muted-text: #647883; --faint-text: #83959d; --line: rgba(18, 52, 67, 0.12); --line-strong: rgba(18, 52, 67, 0.2); --cyan: #1596a5; --cyan-soft: #187783; --blue: #6679ce; --amber: #d88a2f; --green: #2d9a76; --red: #c85757; --violet: #7662ba; --chart-grid: rgba(18,52,67,.1); --tooltip-bg: #ffffff; --shadow: 0 20px 60px rgba(43, 72, 81, 0.12); background: radial-gradient(circle at 12% 0%, rgba(116, 219, 227, .17), transparent 32%), radial-gradient(circle at 92% 18%, rgba(163, 152, 255, .12), transparent 30%), var(--bg); }
 .ambient { position: absolute; z-index: -1; width: 420px; height: 420px; border-radius: 999px; filter: blur(100px); opacity: .14; pointer-events: none; }
 .ambient-one { top: 110px; right: -180px; background: var(--cyan); }
 .ambient-two { top: 620px; left: -260px; background: var(--blue); }
