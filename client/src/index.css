@@ -38,7 +38,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
 .app-shell { min-height: 100vh; position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(circle at 12% 0%, rgba(39, 89, 110, 0.15), transparent 30%), radial-gradient(circle at 88% 18%, rgba(50, 44, 104, 0.12), transparent 28%), var(--bg); transition: background 300ms ease, color 300ms ease; }
-.app-shell.light-mode { --bg: #fffaf1; --bg-elevated: #fffdf8; --surface: rgba(255,255,255,0.86); --surface-solid: #ffffff; --surface-hover: #fff0f8; --text: #351f35; --muted-text: #72586f; --faint-text: #a2879e; --line: rgba(145, 0, 141, 0.13); --line-strong: rgba(145, 0, 141, 0.24); --cyan: #00e0ba; --cyan-soft: #008c76; --blue: #91008d; --amber: #ffcf00; --green: #00aa8b; --red: #ff3483; --violet: #91008d; --chart-grid: rgba(145, 0, 141, .1); --tooltip-bg: #ffffff; --shadow: 0 20px 60px rgba(145, 0, 141, 0.1); background: radial-gradient(circle at 12% 0%, rgba(0, 224, 186, .18), transparent 32%), radial-gradient(circle at 92% 18%, rgba(255, 52, 131, .12), transparent 30%), radial-gradient(circle at 52% 100%, rgba(255, 207, 0, .09), transparent 26%), var(--bg); }
+.app-shell.light-mode { --bg: #ffffff; --bg-elevated: #ffffff; --surface: rgba(255,255,255,0.9); --surface-solid: #ffffff; --surface-hover: #f1f7f6; --text: #4c5454; --muted-text: #66706f; --faint-text: #8d9694; --line: rgba(76, 84, 84, 0.14); --line-strong: rgba(76, 84, 84, 0.27); --cyan: #1ea896; --cyan-soft: #167466; --blue: #4c5454; --amber: #ff715b; --green: #1ea896; --red: #ff715b; --violet: #523f38; --chart-grid: rgba(76, 84, 84, .1); --tooltip-bg: #ffffff; --shadow: 0 20px 60px rgba(82, 63, 56, 0.12); background: radial-gradient(circle at 12% 0%, rgba(30, 168, 150, .13), transparent 32%), radial-gradient(circle at 92% 18%, rgba(255, 113, 91, .1), transparent 30%), var(--bg); }
 .ambient { position: absolute; z-index: -1; width: 420px; height: 420px; border-radius: 999px; filter: blur(100px); opacity: .14; pointer-events: none; }
 .ambient-one { top: 110px; right: -180px; background: var(--cyan); }
 .ambient-two { top: 620px; left: -260px; background: var(--blue); }
@@ -132,11 +132,11 @@ footer { display: flex; justify-content: space-between; align-items: center; gap
 
 /* Final light-mode palette application */
 .light-mode .current-card {
-  background: radial-gradient(circle at 75% 20%, rgba(0,224,186,.18), transparent 33%), radial-gradient(circle at 90% 100%, rgba(255,207,0,.12), transparent 35%), rgba(255,255,255,.86);
+  background: radial-gradient(circle at 75% 20%, rgba(30,168,150,.16), transparent 33%), radial-gradient(circle at 90% 100%, rgba(255,113,91,.1), transparent 35%), rgba(255,255,255,.92);
 }
 .light-mode .radar-map {
-  background: radial-gradient(circle at 55% 45%, rgba(0,224,186,.34) 0 2%, transparent 2.5%), radial-gradient(circle at 55% 45%, rgba(0,224,186,.16) 0 14%, transparent 14.5%), radial-gradient(circle at 55% 45%, rgba(145,0,141,.1) 0 29%, transparent 29.5%), linear-gradient(145deg, #d9fff7, #fff5fb 57%, #fff3bf);
+  background: radial-gradient(circle at 55% 45%, rgba(30,168,150,.34) 0 2%, transparent 2.5%), radial-gradient(circle at 55% 45%, rgba(30,168,150,.16) 0 14%, transparent 14.5%), radial-gradient(circle at 55% 45%, rgba(82,63,56,.1) 0 29%, transparent 29.5%), linear-gradient(145deg, #e3f6f3, #fff0ec 57%, #f4f6f6);
 }
-.light-mode .mobile-nav { background: rgba(255,250,241,.94); }
-.light-mode .mobile-nav button.active svg { filter: drop-shadow(0 0 5px rgba(0,224,186,.55)); }
-.light-mode .switch.on { background: rgba(0,224,186,.28); }
+.light-mode .mobile-nav { background: rgba(255,255,255,.95); }
+.light-mode .mobile-nav button.active svg { filter: drop-shadow(0 0 5px rgba(30,168,150,.55)); }
+.light-mode .switch.on { background: rgba(30,168,150,.28); }
