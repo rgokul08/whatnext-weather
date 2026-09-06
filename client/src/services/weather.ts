@@ -7,6 +7,7 @@ export type LocationResult = {
   country_code?: string;
   admin1?: string;
   timezone?: string;
+  source?: 'device' | 'search' | 'favorite';
 };
 
 export type WeatherPayload = {
@@ -79,26 +80,6 @@ export const DEFAULT_LOCATION: LocationResult = {
   timezone: 'Asia/Kolkata',
 };
 
-// Used only as a resilient offline shell while the live request is in flight or unavailable.
-export function getOfflineSnapshot(location: LocationResult = DEFAULT_LOCATION): WeatherPayload {
-  const now = new Date();
-  const isoHour = (offset: number) => new Date(now.getTime() + offset * 3600000).toISOString().slice(0, 13) + ':00';
-  const isoDay = (offset: number) => new Date(now.getTime() + offset * 86400000).toISOString().slice(0, 10);
-  const hourly = Array.from({ length: 24 }, (_, index) => ({
-    time: isoHour(index), temperature: 27 + Math.round(Math.sin(index / 3) * 4), humidity: 58 + (index % 5),
-    rainProbability: index > 8 && index < 14 ? 28 : 8, precipitation: 0, windSpeed: 12 + (index % 4), uvIndex: index > 5 && index < 14 ? 5 : 0, weatherCode: index > 8 && index < 14 ? 2 : 1,
-  }));
-  const daily = Array.from({ length: 7 }, (_, index) => ({
-    date: isoDay(index), weatherCode: index === 2 ? 61 : index % 3 === 0 ? 2 : 1, high: 32 - (index % 3), low: 24 + (index % 2), apparentHigh: 34 - (index % 3), apparentLow: 25 + (index % 2), precipitation: index === 2 ? 2.4 : 0, rainProbability: index === 2 ? 58 : 18 + index * 3, windSpeed: 16 + index, windGusts: 26 + index, sunrise: `${isoDay(index)}T05:48`, sunset: `${isoDay(index)}T18:42`,
-  }));
-  return {
-    location, timezone: location.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone,
-    current: { time: isoHour(0), temperature: 29, feelsLike: 31, humidity: 62, precipitation: 0, rain: 0, pressure: 1008, cloudCover: 22, windSpeed: 14, windDirection: 118, windGusts: 22, visibility: 10000, uvIndex: 5, weatherCode: 2, isDay: true },
-    hourly, daily,
-    airQuality: { aqi: 62, pm25: 18.4, pm10: 42.1, carbonMonoxide: 241, nitrogenDioxide: 18, sulphurDioxide: 3.2, ozone: 91 },
-  };
-}
-
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Weather service returned ${response.status}`);
@@ -113,16 +94,21 @@ export async function searchLocations(query: string): Promise<LocationResult[]> 
 }
 
 export async function reverseGeocode(latitude: number, longitude: number): Promise<LocationResult> {
-  // Open-Meteo does not expose reverse geocoding; use the nearest broad city from a coordinate search fallback.
-  // Keeping the coordinate is more useful than failing the location experience.
-  return {
-    id: Math.round(latitude * 1000 + longitude),
-    name: 'Current location',
-    latitude,
-    longitude,
-    country: 'Local area',
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  };
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 4500);
+  try {
+    const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1`, { signal: controller.signal, headers: { Accept: 'application/json' } });
+    if (!response.ok) throw new Error('Reverse geocoding unavailable');
+    const data = await response.json() as { address?: Record<string, string>; display_name?: string };
+    const address = data.address ?? {};
+    return {
+      id: Math.round(latitude * 1000 + longitude), name: address.city || address.town || address.village || address.county || 'Current location', latitude, longitude,
+      country: address.country || 'Current area', country_code: address.country_code?.toUpperCase(), admin1: address.state || address.region,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, source: 'device',
+    };
+  } catch {
+    return { id: Math.round(latitude * 1000 + longitude), name: 'Current location', latitude, longitude, country: 'Current area', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone, source: 'device' };
+  } finally { window.clearTimeout(timeout); }
 }
 
 export async function getWeather(location: LocationResult): Promise<WeatherPayload> {
