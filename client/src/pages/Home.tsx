@@ -126,7 +126,24 @@ export default function Home() {
     } finally { setLoading(false); setRefreshing(false); }
   }, []);
 
-  useEffect(() => { loadWeather(location); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const weatherSlug = window.location.pathname.match(/^\/weather\/([^/]+)/)?.[1];
+    if (!weatherSlug) { loadWeather(location); return; }
+    let cancelled = false;
+    searchLocations(weatherSlug.replace(/-/g, ' ')).then((results) => {
+      if (!cancelled && results[0]) loadWeather(results[0]);
+      else if (!cancelled) loadWeather(location);
+    }).catch(() => { if (!cancelled) loadWeather(location); });
+    return () => { cancelled = true; };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const city = location.name || 'Weather';
+    document.title = `${city} Weather Today | WhatNext.com`;
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute('content', `Live weather, forecasts, rain probability, air quality, and practical insights for ${city}.`);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `${window.location.origin}/weather/${city.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
+  }, [location]);
   useEffect(() => { document.documentElement.classList.toggle('dark', dark); localStorage.setItem('whatnext-theme', dark ? 'dark' : 'light'); }, [dark]);
   useEffect(() => { localStorage.setItem('whatnext-unit', unit); }, [unit]);
   useEffect(() => { localStorage.setItem('whatnext-wind', windUnit); }, [windUnit]);

@@ -1,0 +1,16 @@
+{
+  "name": "WhatNext.com — Live Weather & Forecast",
+  "short_name": "WhatNext",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08131d",
+  "theme_color": "#08131d",
+  "description": "Know the weather. Know what's next.",
+  "icons": [{
+    "src": "/favicon.svg",
+    "sizes": "any",
+    "type": "image/svg+xml",
+    "purpose": "any maskable"
+  }]
+}
