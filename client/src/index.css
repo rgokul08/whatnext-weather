@@ -196,3 +196,38 @@ footer { display: flex; justify-content: space-between; align-items: center; gap
 .map-canvas { position: absolute; inset: 0; z-index: 1; }
 .map-fallback-grid { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; color: var(--muted-text); background-color: #10212b; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 44px 44px; font-size: 12px; }
 .map-fallback-grid small { color: var(--faint-text); font: 10px 'DM Mono', monospace; }
+
+/* Light theme refresh: warm ivory + deep teal + coral + gold */
+.light-mode {
+  --bg: #f6f1e9;
+  --bg-elevated: #fffaf2;
+  --surface: rgba(255, 252, 246, .9);
+  --surface-solid: #fffdf8;
+  --surface-hover: #f0e7da;
+  --text: #24313a;
+  --muted-text: #59666a;
+  --faint-text: #87908e;
+  --line: rgba(36, 49, 58, .13);
+  --line-strong: rgba(36, 49, 58, .25);
+  --cyan: #0f766e;
+  --cyan-soft: #0b5f59;
+  --blue: #4f6d7a;
+  --amber: #d99a2b;
+  --green: #2f855a;
+  --red: #e76f51;
+  --violet: #76548b;
+  --chart-grid: rgba(36, 49, 58, .1);
+  --tooltip-bg: #fffdf8;
+  --shadow: 0 20px 60px rgba(89, 66, 43, .13);
+  background: radial-gradient(circle at 8% 0%, rgba(15, 118, 110, .13), transparent 31%), radial-gradient(circle at 93% 18%, rgba(231, 111, 81, .12), transparent 30%), var(--bg);
+}
+.light-mode .site-header { background: rgba(255, 250, 242, .82); }
+.light-mode .surface-card { background: rgba(255, 253, 248, .84); box-shadow: 0 12px 35px rgba(89, 66, 43, .09); }
+.light-mode .current-card { background: radial-gradient(circle at 75% 20%, rgba(15, 118, 110, .15), transparent 33%), rgba(255, 253, 248, .92); }
+.light-mode .search-wrap { background: rgba(255, 253, 248, .9); }
+.light-mode .map-fallback-grid { background-color: #e8f0ed; background-image: linear-gradient(rgba(15, 118, 110, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 118, 110, .08) 1px, transparent 1px); }
+
+.light-mode h1, .light-mode h2, .light-mode h3, .light-mode .current-temp, .light-mode .hour-card strong { color: var(--text); }
+.light-mode h1 em { color: var(--cyan); }
+.light-mode .live-eyebrow, .light-mode .section-heading h2, .light-mode .card-heading h3 { color: var(--text); }
+.light-mode .current-temp { text-shadow: none; }
