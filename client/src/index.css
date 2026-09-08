@@ -319,3 +319,11 @@ h1 em { color: #f8ad9d; font-weight: 500; }
 .cinematic-vignette { z-index: 1; }
 .site-header, .app-shell > main, .app-shell > footer { position: relative; z-index: 2; }
 .app-shell > .ambient { position: absolute !important; z-index: 2; }
+
+/* Clear video emphasis: natural sharpness with only a minimal readability veil */
+.cinematic-video { filter: saturate(1.14) contrast(1.04) brightness(1.02); transform: scale(1.02); }
+.cinematic-overlay { background: linear-gradient(180deg, rgba(4, 7, 17, .08) 0%, rgba(7, 12, 26, .03) 48%, rgba(8, 11, 23, .18) 100%), linear-gradient(90deg, rgba(8, 12, 27, .12), rgba(23, 15, 39, .02) 54%, rgba(9, 11, 22, .12)); }
+.cinematic-vignette { background: radial-gradient(ellipse at center, transparent 54%, rgba(2, 4, 12, .14) 100%); box-shadow: inset 0 0 90px rgba(2, 4, 12, .12); }
+.light-mode .cinematic-video { filter: saturate(1.12) contrast(1.03) brightness(.98); }
+.light-mode .cinematic-overlay { background: linear-gradient(180deg, rgba(13, 17, 31, .06), rgba(34, 23, 42, .02) 50%, rgba(16, 15, 29, .16)); }
+@media (max-width: 720px) { .cinematic-video { filter: saturate(1.12) contrast(1.04) brightness(.98); } .cinematic-overlay { background: linear-gradient(180deg, rgba(4,7,17,.14), rgba(12,14,30,.04) 42%, rgba(8,11,23,.22)); } }
