@@ -344,3 +344,62 @@ h1 em { color: #f8ad9d; font-weight: 500; }
 .video-playback-control:focus-visible { outline: 2px solid #ffb347; outline-offset: 3px; }
 .video-playback-control svg { color: #ffb347; }
 @media (max-width: 720px) { .video-playback-control { right: 14px; bottom: 76px; font-size: 9px; } }
+
+/* Responsive stability layer: keep the cinematic canvas inside the page and let content define height. */
+html { min-width: 320px; background: #090d1a; }
+body { min-width: 320px; overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+img, svg, video, canvas { max-width: 100%; }
+button, input, select, textarea { font: inherit; }
+.app-shell { position: relative; isolation: isolate; min-height: 100vh; min-height: 100svh; overflow-x: clip; overflow-wrap: anywhere; }
+.app-shell > .cinematic-video,
+.app-shell > .cinematic-overlay,
+.app-shell > .cinematic-vignette { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 100%; pointer-events: none; }
+.app-shell > .cinematic-video { z-index: -2; display: block; object-fit: cover; object-position: 50% 50%; transform: translateZ(0) scale(1.015); }
+.app-shell > .cinematic-overlay { z-index: -1; }
+.app-shell > .cinematic-vignette { z-index: -1; }
+.app-shell > .video-playback-control { position: fixed; z-index: 30; }
+.site-header, .app-shell > main, .app-shell > footer { position: relative; z-index: 2; width: 100%; }
+.container { width: min(100% - 32px, 1220px); margin-inline: auto; }
+.header-inner { width: min(100% - 32px, 1220px); margin-inline: auto; min-width: 0; }
+.surface-card, .hour-card, .forecast-card, .map-shell, .radar-map { min-width: 0; }
+.page-content, .route-page { padding-block: clamp(24px, 4vw, 56px); }
+main section, main article { min-width: 0; }
+.forecast-strip, .hourly-strip, .locations-row, .compare-table-wrap { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
+.forecast-strip > *, .hourly-strip > * { flex: 0 0 auto; }
+.chart-wrap, .map-shell, .radar-map { max-width: 100%; overflow: hidden; }
+.search-wrap { max-width: 100%; }
+.search-wrap input { min-width: 0; width: 100%; }
+.video-playback-control { max-width: calc(100vw - 28px); white-space: nowrap; }
+@media (max-width: 900px) {
+  .container, .header-inner { width: min(100% - 28px, 760px); }
+  .desktop-nav { gap: clamp(10px, 2vw, 20px); }
+  .desktop-nav a { font-size: 10px; }
+}
+@media (max-width: 720px) {
+  .container, .header-inner { width: min(100% - 24px, 640px); }
+  .site-header { min-height: 64px; }
+  .header-inner { gap: 12px; }
+  .brand { min-width: 0; font-size: 17px; }
+  .brand-mark { flex: 0 0 auto; }
+  .header-actions { margin-left: auto; gap: 6px; }
+  .desktop-nav { display: none; }
+  .mobile-menu { display: inline-flex; flex: 0 0 auto; }
+  .header-icon, .unit-toggle { min-width: 34px; min-height: 34px; }
+  .page-content, .route-page { padding-block: 20px 40px; }
+  .app-shell > .cinematic-video { object-position: 58% 50%; transform: translateZ(0) scale(1.03); }
+  .app-shell > .cinematic-overlay { background: linear-gradient(180deg, rgba(4,7,17,.24), rgba(9,13,28,.08) 45%, rgba(8,11,23,.34)); }
+  .video-playback-control { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); min-height: 32px; padding-inline: 9px; }
+}
+@media (max-width: 480px) {
+  .container, .header-inner { width: calc(100% - 20px); }
+  .brand { font-size: 16px; }
+  .header-actions .header-icon:first-child { display: none; }
+  h1 { font-size: clamp(38px, 13vw, 56px); line-height: .94; }
+  .section-heading, .card-heading { align-items: flex-start; gap: 12px; }
+  .surface-card { border-radius: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell > .cinematic-video { display: none; }
+  .app-shell > .cinematic-overlay, .app-shell > .cinematic-vignette { display: none; }
+}

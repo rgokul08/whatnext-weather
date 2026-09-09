@@ -11,19 +11,25 @@ export default function CinematicBackground() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
     video.muted = true;
     video.defaultMuted = true;
 
     const startPlayback = () => {
+      if (reducedMotion) {
+        video.pause();
+        setIsPlaying(false);
+        return;
+      }
       const promise = video.play();
       if (promise && typeof promise.then === "function") {
         promise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
       }
     };
 
-    video.addEventListener("canplay", startPlayback);
-    video.addEventListener("loadeddata", startPlayback);
+    video.addEventListener("canplay", startPlayback, { once: true });
+    video.addEventListener("loadeddata", startPlayback, { once: true });
     startPlayback();
 
     return () => {
@@ -52,7 +58,7 @@ export default function CinematicBackground() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster={POSTER_SRC}
         disablePictureInPicture
         aria-hidden="true"
