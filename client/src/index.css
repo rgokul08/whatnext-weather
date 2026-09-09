@@ -327,3 +327,12 @@ h1 em { color: #f8ad9d; font-weight: 500; }
 .light-mode .cinematic-video { filter: saturate(1.12) contrast(1.03) brightness(.98); }
 .light-mode .cinematic-overlay { background: linear-gradient(180deg, rgba(13, 17, 31, .06), rgba(34, 23, 42, .02) 50%, rgba(16, 15, 29, .16)); }
 @media (max-width: 720px) { .cinematic-video { filter: saturate(1.12) contrast(1.04) brightness(.98); } .cinematic-overlay { background: linear-gradient(180deg, rgba(4,7,17,.14), rgba(12,14,30,.04) 42%, rgba(8,11,23,.22)); } }
+
+/* Clear-glass pass: reduce blur so the high-quality video remains visible through the interface */
+.site-header { backdrop-filter: blur(8px) saturate(115%); background: rgba(5, 9, 20, .28); }
+.surface-card { backdrop-filter: blur(7px) saturate(112%); background: linear-gradient(135deg, rgba(18, 31, 52, .58), rgba(16, 18, 37, .34)); }
+.search-wrap { backdrop-filter: blur(6px); background: rgba(9, 17, 32, .42); }
+.hour-card, .forecast-card { backdrop-filter: blur(5px); background: rgba(10, 19, 34, .38); }
+.map-shell, .radar-map { backdrop-filter: blur(6px); background: rgba(9, 17, 31, .58); }
+.location-modal, .suggestions, .mobile-drawer { backdrop-filter: blur(10px); }
+.cinematic-video { image-rendering: auto; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
