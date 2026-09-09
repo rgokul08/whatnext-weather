@@ -336,3 +336,11 @@ h1 em { color: #f8ad9d; font-weight: 500; }
 .map-shell, .radar-map { backdrop-filter: blur(6px); background: rgba(9, 17, 31, .58); }
 .location-modal, .suggestions, .mobile-drawer { backdrop-filter: blur(10px); }
 .cinematic-video { image-rendering: auto; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+
+/* Shared cinematic layer across every route */
+.route-shell { min-height: 100vh; }
+.video-playback-control { position: fixed; right: 20px; bottom: 20px; z-index: 30; display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 11px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; color: #f8f4ec; background: rgba(7, 12, 24, .48); box-shadow: 0 10px 28px rgba(0,0,0,.22); backdrop-filter: blur(5px); font: 500 10px/1 Inter, sans-serif; letter-spacing: .06em; text-transform: uppercase; transition: transform 160ms ease, background 160ms ease, border-color 160ms ease; }
+.video-playback-control:hover { transform: translateY(-2px); background: rgba(255,179,71,.2); border-color: rgba(255,179,71,.75); }
+.video-playback-control:focus-visible { outline: 2px solid #ffb347; outline-offset: 3px; }
+.video-playback-control svg { color: #ffb347; }
+@media (max-width: 720px) { .video-playback-control { right: 14px; bottom: 76px; font-size: 9px; } }

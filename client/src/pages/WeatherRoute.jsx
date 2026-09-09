@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ChevronRight, Cloud, Droplets, MapPin, Moon, RefreshCw, Star, Sun, Wind } from "lucide-react";
 import { getWeather, DEFAULT_LOCATION, weatherIcon, weatherLabel } from "../services/weather";
 import { MapView } from "../components/Map";
+import CinematicBackground from "../components/CinematicBackground";
 function formatTemp(value) {
   return `${Math.round(value)}\xB0`;
 }
@@ -36,7 +37,7 @@ function Header({ title }) {
   return /* @__PURE__ */ React.createElement("header", { className: "site-header" }, /* @__PURE__ */ React.createElement("div", { className: "header-inner" }, /* @__PURE__ */ React.createElement("a", { className: "brand", href: "/" }, /* @__PURE__ */ React.createElement("div", { className: "brand-mark" }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null)), /* @__PURE__ */ React.createElement("span", null, "WhatNext", /* @__PURE__ */ React.createElement("span", { className: "brand-dot" }, "."), "com")), /* @__PURE__ */ React.createElement("nav", { className: "desktop-nav" }, /* @__PURE__ */ React.createElement("a", { href: "/" }, "Home"), /* @__PURE__ */ React.createElement("a", { className: title === "Forecast" ? "active" : "", href: "/forecast" }, "Forecast"), /* @__PURE__ */ React.createElement("a", { className: title === "Live Layer" ? "active" : "", href: "/map" }, "Live Layer"), /* @__PURE__ */ React.createElement("a", { className: title === "Favorites" ? "active" : "", href: "/favorites" }, "Favorites"), /* @__PURE__ */ React.createElement("a", { className: title === "Compare" ? "active" : "", href: "/compare" }, "Compare")), /* @__PURE__ */ React.createElement("a", { className: "route-back", href: "/" }, /* @__PURE__ */ React.createElement(ArrowLeft, { size: 16 }), " Dashboard")));
 }
 function Shell({ title, children }) {
-  return /* @__PURE__ */ React.createElement("div", { className: "app-shell" }, /* @__PURE__ */ React.createElement(Header, { title }), /* @__PURE__ */ React.createElement("main", { className: "container page-content route-page" }, /* @__PURE__ */ React.createElement("div", { className: "route-kicker" }, /* @__PURE__ */ React.createElement("span", { className: "live-dot" }), " ", title, " \xB7 ", loadLocation().name), children));
+  return /* @__PURE__ */ React.createElement("div", { className: "app-shell route-shell" }, /* @__PURE__ */ React.createElement(CinematicBackground, null), /* @__PURE__ */ React.createElement(Header, { title }), /* @__PURE__ */ React.createElement("main", { className: "container page-content route-page" }, /* @__PURE__ */ React.createElement("div", { className: "route-kicker" }, /* @__PURE__ */ React.createElement("span", { className: "live-dot" }), " ", title, " · ", loadLocation().name), children));
 }
 function useRouteWeather() {
   const [location] = useState(loadLocation);
