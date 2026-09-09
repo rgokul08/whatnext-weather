@@ -157,7 +157,7 @@ function CinematicBackground() {
       video.removeEventListener("loadeddata", startPlayback);
     };
   }, []);
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("video", { ref: videoRef, className: "cinematic-video", autoPlay: true, muted: true, defaultMuted: true, loop: true, playsInline: true, preload: "auto", disablePictureInPicture: true, "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("source", { src: "/manus-storage/mountain-time-lapse-hq_d936c573.mp4", type: "video/mp4" })), /* @__PURE__ */ React.createElement("div", { className: "cinematic-overlay", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("div", { className: "cinematic-vignette", "aria-hidden": "true" }));
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("video", { ref: videoRef, className: "cinematic-video", autoPlay: true, muted: true, loop: true, playsInline: true, preload: "auto", disablePictureInPicture: true, "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("source", { src: "/manus-storage/mountain-time-lapse-hq_d936c573.mp4", type: "video/mp4" })), /* @__PURE__ */ React.createElement("div", { className: "cinematic-overlay", "aria-hidden": "true" }), /* @__PURE__ */ React.createElement("div", { className: "cinematic-vignette", "aria-hidden": "true" }));
 }
 function Home() {
   const [location, setLocation] = useState(() => {
