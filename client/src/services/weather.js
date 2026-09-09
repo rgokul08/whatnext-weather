@@ -11,16 +11,25 @@ const DEFAULT_LOCATION = {
   admin1: "Delhi",
   timezone: "Asia/Kolkata"
 };
-async function fetchJson(url) {
-  const response = await fetch(url);
+async function fetchJson(url, options) {
+  const response = await fetch(url, options);
   if (!response.ok) throw new Error(`Weather service returned ${response.status}`);
   return response.json();
 }
-async function searchLocations(query) {
-  if (!query.trim()) return [];
-  const params = new URLSearchParams({ name: query.trim(), count: "5", language: "en", format: "json" });
-  const data = await fetchJson(`${GEOCODE_API}?${params}`);
-  return data.results ?? [];
+async function searchLocations(query, signal) {
+  const normalized = query.trim();
+  if (!normalized) return [];
+  const params = new URLSearchParams({ name: normalized, count: "10", language: "en", format: "json" });
+  const data = await fetchJson(`${GEOCODE_API}?${params}`, { signal });
+  const needle = normalized.toLocaleLowerCase();
+  return [...new Map((data.results ?? []).map((item) => [item.id, item])).values()]
+    .sort((a, b) => {
+      const aName = a.name.toLocaleLowerCase();
+      const bName = b.name.toLocaleLowerCase();
+      const score = (name) => name === needle ? 0 : name.startsWith(needle) ? 1 : name.includes(needle) ? 2 : 3;
+      return score(aName) - score(bName) || (b.population ?? 0) - (a.population ?? 0);
+    })
+    .slice(0, 7);
 }
 async function reverseGeocode(latitude, longitude) {
   const controller = new AbortController();

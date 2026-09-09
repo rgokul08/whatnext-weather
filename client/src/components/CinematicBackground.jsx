@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
+import React, { useEffect, useRef } from "react";
 
 const VIDEO_SRC = "/background/mountain-time-lapse-hq.mp4";
 const POSTER_SRC = "/background/mountain-time-lapse-poster.jpg";
 
 export default function CinematicBackground() {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -19,12 +17,11 @@ export default function CinematicBackground() {
     const startPlayback = () => {
       if (reducedMotion) {
         video.pause();
-        setIsPlaying(false);
         return;
       }
       const promise = video.play();
       if (promise && typeof promise.then === "function") {
-        promise.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+        promise.catch(() => undefined);
       }
     };
 
@@ -38,16 +35,6 @@ export default function CinematicBackground() {
     };
   }, []);
 
-  const togglePlayback = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  };
 
   return (
     <>
@@ -67,16 +54,6 @@ export default function CinematicBackground() {
       </video>
       <div className="cinematic-overlay" aria-hidden="true" />
       <div className="cinematic-vignette" aria-hidden="true" />
-      <button
-        type="button"
-        className="video-playback-control"
-        onClick={togglePlayback}
-        aria-label={isPlaying ? "Pause background video" : "Play background video"}
-        title={isPlaying ? "Pause background video" : "Play background video"}
-      >
-        {isPlaying ? <Pause size={14} /> : <Play size={14} />}
-        <span>{isPlaying ? "Pause motion" : "Play motion"}</span>
-      </button>
     </>
   );
 }
